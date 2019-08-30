@@ -1,2 +1,2 @@
-# BackupDocker
-Docker image to backup files
+# BackupNCDocker
+Docker image to backup files with nextcloud
