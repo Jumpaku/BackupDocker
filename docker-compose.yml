@@ -1,1 +1,15 @@
+version: '3'
 
+services: 
+  backup:
+    container_name: 'backup'
+    build: './'
+    volumes: 
+      - './backup/:/backup/'
+      - './backup.sh:/backup.sh/'
+    environment: 
+      - "CRON_EXP=0  *  *  *  *"
+      - "CRON_USER=root"
+      - "NC_URL=http://nextcloud/remote.php/webdav/"
+      - "NC_USER=testuser"
+      - "NC_PASSWORD=user_password"
