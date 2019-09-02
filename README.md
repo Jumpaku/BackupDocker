@@ -71,7 +71,7 @@ From the following environments:
       - "NC_PASSWORD=nc_password"
 ```
 
-the following `/etc/crontab` is generated
+the following `/etc/crontab` is generated.
 
 ```
 0  *  *  *  * root /backup.sh && nextcloudcmd --user nc_user --password nc_password /backup/ http://nextcloud/remote.php/webdav/
