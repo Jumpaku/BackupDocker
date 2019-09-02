@@ -25,7 +25,7 @@ services:
       - './backup.sh:/backup.sh:ro'
       - './backup-from/:/backup-from/'
     environment: 
-      - "NC_URL=http://nextcloud/remote.php/webdav/"
+      - "NC_URL=http://nextcloud.example.com/remote.php/webdav/"
       - "NC_USER=testuser"
       - "NC_PASSWORD=user_password"
 ```
