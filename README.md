@@ -4,9 +4,9 @@ Docker image to backup files with nextcloud.
 
 ## Introduction
 
-It creates backup files by executing the specified script.
-It synchronizes created files with the specified nextcloud server.
-It repeats these processes with cron.
+* It creates backup files by executing the specified script.
+* It synchronizes created files with the specified nextcloud server.
+* It repeats these processes with cron.
 
 ## Example
 
