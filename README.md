@@ -18,7 +18,7 @@ version: '3'
 services: 
   backup:
     container_name: 'backup'
-    build: './'
+    images: 'jumpaku/backup-with-nextcloud'
     volumes: 
       - './backup.sh:/backup.sh:ro'
     environment: 
