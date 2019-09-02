@@ -49,7 +49,7 @@ the following `/etc/crontab` is generated.
 ```
 
 
-## Example for docker-compose
+## Examples for docker-compose
 
 Execute `docker-compose up -d` with the following `docker-compose.yml`.
 
