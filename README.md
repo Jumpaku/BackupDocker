@@ -1,6 +1,6 @@
 # backup-with-nextcloud
 
-Docker image to backup files with nextcloud
+Docker image to backup files with nextcloud.
 
 ## Introduction
 
@@ -10,7 +10,7 @@ It repeats these processes with cron.
 
 ## Example
 
-Run `docker-compose up -d` with the following `docker-compose.yml` and `backup.sh`.
+Execute `docker-compose up -d` with the following `docker-compose.yml`.
 
 * docker-compose.yml
 
@@ -19,15 +19,32 @@ version: '3'
 
 services: 
   backup:
-    container_name: 'backup'
-    images: 'jumpaku/backup-with-nextcloud'
+    image: 'jumpaku/backup-with-nextcloud'
+    environment: 
+      - 'NC_URL=http://nextcloud.example.com/remote.php/webdav/'
+      - 'NC_USER=testuser'
+      - 'NC_PASSWORD=user_password'
+    volumes: 
+      - './backup/:/backup/:ro'
+```
+
+Or execute `docker-compose up -d` with the following `docker-compose.yml` and `backup.sh`.
+
+* docker-compose.yml
+
+```yml
+version: '3'
+
+services: 
+  backup:
+    image: 'jumpaku/backup-with-nextcloud'
+    environment: 
+      - 'NC_URL=http://nextcloud.example.com/remote.php/webdav/'
+      - 'NC_USER=testuser'
+      - 'NC_PASSWORD=user_password'
     volumes: 
       - './backup.sh:/backup.sh:ro'
       - './backup-from/:/backup-from/'
-    environment: 
-      - "NC_URL=http://nextcloud.example.com/remote.php/webdav/"
-      - "NC_USER=testuser"
-      - "NC_PASSWORD=user_password"
 ```
 
 * backup.sh
@@ -36,17 +53,6 @@ services:
 #!/bin/bash
 cp -rf /backup-from/* /backup/
 ```
-
-## Backup script
-
-Mount the backup script `backup.sh` on `/` as follows:
-
-```yml
-    volumes: 
-      - './backup.sh:/backup.sh:ro'
-```
-
-`backup.sh` needs to create a file to be backed up to `/backup/`.
 
 ## Environments
 
@@ -76,3 +82,15 @@ the following `/etc/crontab` is generated.
 ```
 0  *  *  *  * root /backup.sh && nextcloudcmd --user nc_user --password nc_password /backup/ http://nextcloud/remote.php/webdav/
 ```
+
+## Backup script
+
+Mount the backup script `backup.sh` on `/` as follows:
+
+```yml
+    volumes: 
+      - './backup.sh:/backup.sh:ro'
+```
+
+`backup.sh` needs to create a file to be backed up to `/backup/`.
+
