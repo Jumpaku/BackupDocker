@@ -1,4 +1,4 @@
-# BackupWithNextcloud
+# backup-with-nextcloud
 
 Docker image to backup files with nextcloud
 
