@@ -8,6 +8,26 @@ It creates backup files by executing the specified script.
 It synchronizes created files with the specified nextcloud server.
 It repeats these processes with cron.
 
+## Example
+
+Run `docker-compose up -d` with the following `docker-compose.yml`:
+
+```yml
+version: '3'
+
+services: 
+  backup:
+    container_name: 'backup'
+    build: './'
+    volumes: 
+      - './backup.sh:/backup.sh:ro'
+    environment: 
+      - "NC_URL=http://nextcloud/remote.php/webdav/"
+      - "NC_USER=testuser"
+      - "NC_PASSWORD=user_password"
+```
+
+
 ## Backup script
 
 Mount the backup script `backup.sh` on `/` as follows:
@@ -19,17 +39,17 @@ Mount the backup script `backup.sh` on `/` as follows:
 
 `backup.sh` needs to create a file to be backed up to `/backup/`.
 
-## Environment
+## Environments
 
 Configure environments.
 
 | environment | default         | required | description |
 |-------------|-----------------|----------|-------------|
-| CRON_EXP    | `0 0 * ? * * *` | no       |             |
-| CRON_USER   | root            | no       |             |
-| NC_URL      |                 | yes      |             |
-| NC_USER     |                 | yes      |             |
-| NC_PASSWORD |                 | yes      |             |
+| CRON_EXP    | `0  *  *  *  *` | no       | cron expression |
+| CRON_USER   | root            | no       | user who execute cron command |
+| NC_URL      |                 | yes      | url of Nextcloud's folder |
+| NC_USER     |                 | yes      | user of Nextcloud |
+| NC_PASSWORD |                 | yes      | password for the user of nextcloud |
 
 From the following environments:
 
@@ -45,5 +65,5 @@ From the following environments:
 the following `/etc/crontab` is generated
 
 ```
-$CRON_EXP $CRON_USER /backup.sh && nextcloudcmd --user $NC_USER --password $NC_PASSWORD /backup/ $NC_URL
+0  *  *  *  * root /backup.sh && nextcloudcmd --user nc_user --password nc_password /backup/ http://nextcloud/remote.php/webdav/
 ```
