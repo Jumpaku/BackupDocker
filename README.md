@@ -10,7 +10,9 @@ It repeats these processes with cron.
 
 ## Example
 
-Run `docker-compose up -d` with the following `docker-compose.yml`:
+Run `docker-compose up -d` with the following `docker-compose.yml` and `backup.sh`.
+
+* docker-compose.yml
 
 ```yml
 version: '3'
@@ -21,12 +23,18 @@ services:
     images: 'jumpaku/backup-with-nextcloud'
     volumes: 
       - './backup.sh:/backup.sh:ro'
+      - './backup-from/:/backup-from/'
     environment: 
       - "NC_URL=http://nextcloud/remote.php/webdav/"
       - "NC_USER=testuser"
       - "NC_PASSWORD=user_password"
 ```
 
+* backup.sh
+
+```sh
+cp -rf /backup-from/* /backup/
+```
 
 ## Backup script
 
