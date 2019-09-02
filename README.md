@@ -25,7 +25,7 @@ services:
       - 'NC_USER=testuser'
       - 'NC_PASSWORD=user_password'
     volumes: 
-      - './backup/:/backup/:ro'
+      - './backup/:/backup/'
 ```
 
 Or execute `docker-compose up -d` with the following `docker-compose.yml` and `backup.sh`.
