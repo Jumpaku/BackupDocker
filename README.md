@@ -22,8 +22,8 @@ services:
     image: 'jumpaku/backup-with-nextcloud'
     environment: 
       - 'NC_URL=http://nextcloud.example.com/remote.php/webdav/'
-      - 'NC_USER=testuser'
-      - 'NC_PASSWORD=user_password'
+      - 'NC_USER=nc_user'
+      - 'NC_PASSWORD=nc_password'
     volumes: 
       - './backup/:/backup/'
 ```
@@ -40,8 +40,8 @@ services:
     image: 'jumpaku/backup-with-nextcloud'
     environment: 
       - 'NC_URL=http://nextcloud.example.com/remote.php/webdav/'
-      - 'NC_USER=testuser'
-      - 'NC_PASSWORD=user_password'
+      - 'NC_USER=nc_user'
+      - 'NC_PASSWORD=nc_password'
     volumes: 
       - './backup.sh:/backup.sh:ro'
       - './backup-from/:/backup-from/'
