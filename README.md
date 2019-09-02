@@ -33,6 +33,7 @@ services:
 * backup.sh
 
 ```sh
+#!/bin/bash
 cp -rf /backup-from/* /backup/
 ```
 
