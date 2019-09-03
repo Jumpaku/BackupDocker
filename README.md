@@ -98,7 +98,7 @@ services:
 
 ```sh
 #!/bin/bash
-cp -rf /backup-from/* /backup/
+cp -Rf /backup-from/* /backup/
 ```
 
 ## Test
