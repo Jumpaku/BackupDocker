@@ -102,6 +102,6 @@ Execute `docker-compose -f docker-compose-test.yml up --build -d`, wait for a wh
 ```sh
 docker-compose -f docker-compose-test.yml exec backup cat /backup/date.txt
 # => Tue Sep 3 03:59:01 UTC 2019
-docker-compose -f docker-compose-test.yml exec nextcloud cat ./data/admin/file/date.txt
+docker-compose -f docker-compose-test.yml exec nextcloud cat ./data/admin/files/date.txt
 # => Tue Sep 3 03:59:01 UTC 2019
 ```
