@@ -5,7 +5,7 @@ Docker image to backup files with remote nextcloud.
 ## Introduction
 
 * It synchronizes the files to be backed up with your nextcloud server.
-* It can prepare backup files by executing the specified script.
+* It can prepare the files to be backed up by executing the specified script.
 * It repeats these processes with cron.
 
 ## Volumes
