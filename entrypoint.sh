@@ -16,6 +16,6 @@ if [ -z $NC_URL ]; then
 fi
 
 
-echo "$CRON_EXP $CRON_USER /backup.sh && nextcloudcmd --non-interactive --user $NC_USER --password $NC_PASSWORD --exclude /sync-exclude.lst /backup/ $NC_URL" >> /etc/crontab
+echo "$CRON_EXP $CRON_USER /backup.sh && nextcloudcmd --non-interactive --user $NC_USER --password $NC_PASSWORD --exclude /sync-exclude.lst /backup/ $NC_URL" > /etc/crontab
 
 cron -f
