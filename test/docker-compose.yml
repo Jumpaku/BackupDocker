@@ -2,8 +2,7 @@ version: '3'
 
 services: 
   backup:
-    container_name: 'backup'
-    build: './'
+    build: '../'
     volumes: 
       - './backup.sh:/backup.sh:ro'
     environment: 
