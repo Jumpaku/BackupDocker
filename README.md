@@ -103,11 +103,11 @@ cp -rf /backup-from/* /backup/
 
 ## Test
 
-Execute `docker-compose -f docker-compose-test.yml up --build -d`, wait for a while, and check as follows:
+Execute ` docker-compose -f ./test/docker-compose.yml up --build -d`, wait for a while, and check as follows:
 
 ```sh
-docker-compose -f docker-compose-test.yml exec backup cat /backup/date.txt
+ docker-compose -f ./test/docker-compose.yml exec backup cat /backup/date.txt
 # => Tue Sep 3 03:59:01 UTC 2019
-docker-compose -f docker-compose-test.yml exec nextcloud cat ./data/admin/files/date.txt
+ docker-compose -f ./test/docker-compose.yml exec nextcloud cat ./data/admin/files/date.txt
 # => Tue Sep 3 03:59:01 UTC 2019
 ```
