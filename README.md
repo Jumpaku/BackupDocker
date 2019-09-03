@@ -1,56 +1,27 @@
 # backup-with-nextcloud
 
-Docker image to backup files with nextcloud
+Docker image to backup files with remote nextcloud.
 
 ## Introduction
 
-It creates backup files by executing the specified script.
-It synchronizes created files with the specified nextcloud server.
-It repeats these processes with cron.
+* It synchronizes created files with the specified remote nextcloud server.
+* It can prepare backup files by executing the specified script.
+* It repeats these processes with cron.
 
-## Example
+## Volumes
 
-Run `docker-compose up -d` with the following `docker-compose.yml` and `backup.sh`.
+### `/backup/`
 
-* docker-compose.yml
+This container synchronizes the files in the directory named `/backup/` with nextcloud.
+Mount the directory of your host which contains the files which you want to backup to `/backup/` of this container.
 
-```yml
-version: '3'
+### `/backup.sh`
 
-services: 
-  backup:
-    container_name: 'backup'
-    images: 'jumpaku/backup-with-nextcloud'
-    volumes: 
-      - './backup.sh:/backup.sh:ro'
-      - './backup-from/:/backup-from/'
-    environment: 
-      - "NC_URL=http://nextcloud.example.com/remote.php/webdav/"
-      - "NC_USER=testuser"
-      - "NC_PASSWORD=user_password"
-```
+This container can execute complex processes to prepare files which are backed up.
+If you want to execute complex processes, create a script which put files to be backed up to `/backup/` and mount the script to `/` as `backup.sh`.
 
-* backup.sh
-
-```sh
-#!/bin/bash
-cp -rf /backup-from/* /backup/
-```
-
-## Backup script
-
-Mount the backup script `backup.sh` on `/` as follows:
-
-```yml
-    volumes: 
-      - './backup.sh:/backup.sh:ro'
-```
-
-`backup.sh` needs to create a file to be backed up to `/backup/`.
 
 ## Environments
-
-Configure environments.
 
 | environment | default         | required | description |
 |-------------|-----------------|----------|-------------|
@@ -75,4 +46,51 @@ the following `/etc/crontab` is generated.
 
 ```
 0  *  *  *  * root /backup.sh && nextcloudcmd --user nc_user --password nc_password /backup/ http://nextcloud/remote.php/webdav/
+```
+
+
+## Examples for docker-compose
+
+Execute `docker-compose up -d` with the following `docker-compose.yml`.
+
+* docker-compose.yml
+
+```yml
+version: '3'
+
+services: 
+  backup:
+    image: 'jumpaku/backup-with-nextcloud'
+    environment: 
+      - 'NC_URL=http://nextcloud.example.com/remote.php/webdav/'
+      - 'NC_USER=nc_user'
+      - 'NC_PASSWORD=nc_password'
+    volumes: 
+      - './backup/:/backup/'
+```
+
+Or execute `docker-compose up -d` with the following `docker-compose.yml` and `backup.sh`.
+
+* docker-compose.yml
+
+```yml
+version: '3'
+
+services: 
+  backup:
+    image: 'jumpaku/backup-with-nextcloud'
+    environment: 
+      - 'NC_URL=http://nextcloud.example.com/remote.php/webdav/'
+      - 'NC_USER=nc_user'
+      - 'NC_PASSWORD=nc_password'
+    volumes: 
+      - './backup.sh:/backup.sh:ro'
+      - './backup-from/:/backup-from/'
+```
+
+* backup.sh
+
+```sh
+#!/bin/bash
+cp -rf /backup-from/* /backup/
 ```
