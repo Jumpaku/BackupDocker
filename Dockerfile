@@ -11,7 +11,7 @@ ENV CRON_EXP="0  *  *  *  *"
 ENV CRON_USER="root"
 
 RUN mkdir -p /backup/
-RUN echo '#!bin/bash' > /backup.sh && chmod +x /backup.sh
+RUN echo '#!/bin/bash' > /backup.sh && chmod +x /backup.sh
 
 COPY ./sync-exclude.lst /sync-exclude.lst 
 COPY ./entrypoint.sh /entrypoint.sh
