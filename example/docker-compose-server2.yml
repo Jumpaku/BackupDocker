@@ -1,0 +1,26 @@
+version: '3'
+
+services: 
+  service:
+    build: './'
+    volumes:
+      - './data:/data/'
+    networks: 
+      - 'nc_network'
+
+  backup:
+    image: 'jumpaku/backup-with-nextcloud'
+    volumes:
+      - './data/:/backup/'
+    environment: 
+      - 'CRON_EXP=* * * * *'
+      - 'CRON_USER=root'
+      - "NC_URL=http://nextcloud/remote.php/webdav/"
+      - 'NC_USER=nc_admin_user'
+      - 'NC_PASSWORD=nc_admin_password'
+    networks: 
+      - 'nc_network'
+
+networks: 
+  nc_network:
+    external: true
